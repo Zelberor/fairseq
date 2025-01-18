@@ -64,7 +64,7 @@ class AddTargetDataset(BaseWrapperDataset):
             collated["target_lengths"] = torch.LongTensor([len(t) for t in target])
             target = data_utils.collate_tokens(target, pad_idx=self.pad, left_pad=False)
             collated["ntokens"] = collated["target_lengths"].sum().item()
-            if getattr(collated["net_input"], "prev_output_tokens", None):
+            if "prev_output_tokens" in collated["net_input"]:
                 collated["net_input"]["prev_output_tokens"] = data_utils.collate_tokens(
                     collated["net_input"]["prev_output_tokens"],
                     pad_idx=self.pad,
